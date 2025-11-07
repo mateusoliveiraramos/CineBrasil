@@ -12,7 +12,7 @@ export const useMovieStore = defineStore('movie', () => {
   const currentMovie = computed(() => state.currentMovie);
 
   const getMovieDetail = async (movieId) => {
-    const response = await api.get(`movie/${movieId}`);
+    const response = await api.get(`movie/${movieId}?language=pt-BR`);
     state.currentMovie = response.data;
   };
 

@@ -13,8 +13,13 @@ const genreStore = useGenreStore()
 onMounted(async () => {
   isLoading.value = true
   await genreStore.getAllGenres('movie')
+  if (genreStore.genres.length > 0) {
+    const firstGenre = genreStore.genres[0]
+    await listMovies(firstGenre.id)
+  }
   isLoading.value = false
 })
+
 
 function openMovie(movieId) {
   router.push({ name: 'MovieDetails', params: { movieId } })
@@ -35,115 +40,141 @@ const listMovies = async (genreId) => {
   movies.value = response.data.results
   isLoading.value = false
 }
-
 const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 </script>
 
 <template>
+  <div class="page-container">
+
+    <div class="genre-sidebar">
+      <button
+        v-for="genre in genreStore.genres"
+        :key="genre.id"
+        @click="listMovies(genre.id)"
+        :class="{ active: genre.id === genreStore.currentGenreId }"
+      >
+        {{ genre.name }}
+      </button>
+    </div>
 
 
-  <!-- BARRA DE GÊNEROS (sem rolagem) -->
-  <div class="genre-bar">
-    <button
-      v-for="genre in genreStore.genres"
-      :key="genre.id"
-      @click="listMovies(genre.id)"
-      :class="{ active: genre.id === genreStore.currentGenreId }"
-    >
-      {{ genre.name }}
-    </button>
-  </div>
-
-  <!-- LISTA DE FILMES -->
-  <loading v-model:active="isLoading" is-full-page />
-  <div class="movie-list">
-    <div v-for="movie in movies" :key="movie.id" class="movie-card">
-      <img
-        :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
-        :alt="movie.title"
-        @click="openMovie(movie.id)"
-      />
-      <div class="movie-info">
-        <h3>{{ movie.title }}</h3>
-        <p>{{ formatDate(movie.release_date) }}</p>
+    <div class="content-area">
+      <loading v-model:active="isLoading" is-full-page />
+      <div class="movie-list">
+        <div v-for="movie in movies" :key="movie.id" class="movie-card">
+          <img
+            :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+            :alt="movie.title"
+            @click="openMovie(movie.id)"
+          />
+          <div class="movie-info">
+            <h3>{{ movie.title }}</h3>
+            <p>{{ formatDate(movie.release_date) }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* ====== GERAL ====== */
 body {
-  background-color: #0b0b0b;
   color: white;
   font-family: 'Poppins', sans-serif;
+  margin: 0;
 }
 
-.genre-bar {
+.page-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.8rem;
-  padding: 1rem 2rem;
-  background-color: #111;
-  border-top: 1px solid #1f1f1f;
-  border-bottom: 1px solid #1f1f1f;
+  min-height: 100vh;
 }
 
-.genre-bar button {
+.genre-sidebar {
+  margin: 2vw 0 0 0;
+  width: 280px;
+  background-color: #111;
+  border-right: 1px solid #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #E6E600 #111;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.genre-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.genre-sidebar::-webkit-scrollbar-thumb {
+  background-color: #E6E600;
+  border-radius: 3px;
+}
+
+.genre-sidebar button {
   background: #1b1b1b;
   border: none;
   color: #bbb;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 1rem;
   border-radius: 2rem;
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1.2rem;
+  margin-bottom: 0.8rem;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
-  white-space: nowrap;
+  text-align: left;
+  letter-spacing: 0.3px;
 }
 
-.genre-bar button:hover {
+.genre-sidebar button:hover {
   color: #fff;
-  background: #e50914;
-  transform: translateY(-2px);
-  box-shadow: 0 0 10px #e50914;
+  background: #E6E600;
+  transform: translateX(5px);
+  box-shadow: 0 0 12px #E6E600;
 }
 
-.genre-bar button.active {
-  background: #e50914;
+.genre-sidebar button.active {
+  background: #E6E600;
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 0 8px rgba(229, 9, 20, 0.6);
+
 }
 
-/* ====== LISTA DE FILMES ====== */
+
+.content-area {
+  flex: 1;
+  padding: 2rem 3rem;
+  overflow-y: auto;
+}
+
+
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.8rem;
-  padding: 2rem;
-  background: #0b0b0b;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2.2rem;
   justify-items: center;
 }
 
 .movie-card {
   background: #141414;
-  border-radius: 0.8rem;
+  border-radius: 1rem;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
   width: 100%;
-  max-width: 220px;
+  max-width: 260px;
 }
 
 .movie-card img {
   width: 100%;
-  height: 300px;
+  height: 370px;
   object-fit: cover;
   transition: transform 0.4s ease, filter 0.3s ease;
 }
+
+
 
 .movie-card:hover img {
   transform: scale(1.05);
@@ -151,41 +182,21 @@ body {
 }
 
 .movie-info {
-  padding: 0.8rem;
+  padding: 1rem;
   text-align: center;
   background: #1b1b1b;
 }
 
 .movie-info h3 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
-  margin-bottom: 0.3rem;
-  line-height: 1.3rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.4rem;
 }
 
 .movie-info p {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #b3b3b3;
-}
-
-/* ====== RESPONSIVIDADE ====== */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
-  .logo {
-    font-size: 1.5rem;
-  }
-
-  .genre-bar {
-    padding: 0.8rem 1rem;
-    gap: 0.6rem;
-  }
-
-  .movie-card img {
-    height: 260px;
-  }
 }
 </style>
