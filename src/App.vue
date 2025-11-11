@@ -9,7 +9,7 @@
 
       <div class="links">
         <router-link to="/">Home</router-link>
-        <router-link to="/filmes">Filmes</router-link>
+        
         <router-link to="/categorias">Categorias</router-link>
         <router-link to="/sobre">Sobre</router-link>
       </div>
