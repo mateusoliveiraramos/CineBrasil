@@ -1,13 +1,10 @@
 <script setup>
-const bgImage = '/src/images/tropa_elite.jpg' 
+const bgImage = '/src/images/tropa_elite.jpg'
 </script>
 
 <template>
   <div class="home-container" :style="{ backgroundImage: `url(${bgImage})` }">
-    <header class="header-top">
-      <button class="login-btn">FAZER LOGIN</button>
-      <button class="subscribe-btn">ASSINE CineBrasil</button>
-    </header>
+
 
     <div class="content-left">
       <h1>NA GUERRA,<br />NÃO HÁ REGRAS.</h1>
@@ -25,57 +22,37 @@ const bgImage = '/src/images/tropa_elite.jpg'
 </template>
 
 <style scoped>
+
+
+
+
 .home-container {
-  height: 100vh;
-  width: 100%; /* alterado de 100vw para 100% */
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  padding: 3rem 5rem;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  box-sizing: border-box; /* inclui padding na largura */
+  width: 100%;
+  min-height: 92.3vh;  /* ocupa a tela inteira para telas menores */
+  max-height: 860px;  /* não ultrapassa isso em telas grandes */
+
   background-image:
     linear-gradient(to right, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.9) 100%),
-    url('/caminho/para/sua/imagem.png');
-}
+    url('/src/images/tropa_elite.jpg');
 
-.header-top {
-  position: absolute;
-  top: 2rem;
-  right: 3rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+ 
+  background-color: black;
+
   display: flex;
-  gap: 1rem;
-  z-index: 10;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  padding: 3rem 5rem;
+  box-sizing: border-box;
+  color: white;
+  position: relative;
+  overflow: hidden; /* evita scroll */
 }
 
-.login-btn {
-  background: transparent;
-  border: none;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  padding: 0.5rem 1rem;
-}
-
-.subscribe-btn {
-  background: #0046FF;
-  border: none;
-  color: white;
-  padding: 0.7rem 1.5rem;
-  font-weight: 700;
-  font-size: 0.9rem;
-  border-radius: 5px;
-  cursor: pointer;
-  text-transform: uppercase;
-  box-shadow: 0 2px 8px #0046FF;
-  transition: background-color 0.3s ease;
-}
+/* Cabeçalho no topo direito */
 
 .subscribe-btn:hover {
   background-color: #0033cc;

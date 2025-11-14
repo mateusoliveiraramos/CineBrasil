@@ -77,7 +77,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 
 <style scoped>
 body {
-  color: white;
+  color: black;
   font-family: 'Poppins', sans-serif;
   margin: 0;
 }
@@ -100,7 +100,7 @@ body {
   scrollbar-color: #1A4ED8 #111;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 0 20px 20px 0;
-  height: 130vh;
+  height: 140vh;
 }
 
 .categorias-container button {
@@ -122,7 +122,7 @@ body {
   color: #fff;
   background: #1A4ED8;
   transform: translateX(5px);
-  box-shadow: 0 0 12px #E6E600;
+  box-shadow: 0 0 12px #1A4ED8;
 }
 
 .categorias-container button.ativo {
@@ -141,32 +141,15 @@ body {
 /* Lista de filmes */
 .lista-filmes {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2.2rem;
   justify-items: center;
 
   /* 🔹 limita a exibição a 3 linhas de filmes */
-  overflow-y: auto;
-  max-height: calc((370px + 120px) * 3 + 2.2rem * 2); 
-  padding-right: 10px;
 
-  scrollbar-width: thin;
- 
 }
 
-/* 🔸 Scrollbar personalizada (Chrome, Edge, etc.) */
-.lista-filmes::-webkit-scrollbar {
-  width: 8px;
-}
 
-.lista-filmes::-webkit-scrollbar-thumb {
-  background-color: #E6E600;
-  border-radius: 4px;
-}
-
-.lista-filmes::-webkit-scrollbar-track {
-  background: #111;
-}
 
 
 .cartao-filme {
@@ -176,21 +159,16 @@ body {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-  width: 100%;
-  max-width: 260px;
+  width: 330px;
+  height: 590px;
 }
 
 .cartao-filme img {
   width: 100%;
-  height: 370px;
+  height: 500px;
   object-fit: cover;
-  transition: transform 0.4s ease, filter 0.3s ease;
 }
 
-.cartao-filme:hover img {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
 
 .info-filme {
   padding: 1rem;
