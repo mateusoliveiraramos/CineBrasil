@@ -87,6 +87,7 @@ body {
   min-height: 100vh;
 }
 
+
 /* Categorias */
 .categorias-container {
   margin: 1.5vw 0 0 0;

@@ -14,6 +14,7 @@ const bgImage = '/src/images/tropa_elite.jpg'
         Novo no CineBrasil? Assine agora com 30 dias GRÁTIS.
       </p>
 
+
       <button class="subscribe-main-btn">ASSINE CineBrasil</button>
       <button class="secondary-btn">JÁ ASSINO CineBrasil</button>
       <button class="secondary-btn">FAZER LOGIN COM O PARCEIRO</button>
@@ -37,7 +38,7 @@ const bgImage = '/src/images/tropa_elite.jpg'
 
   background-repeat: no-repeat;
   background-position: center center;
- 
+
   background-color: black;
 
   display: flex;

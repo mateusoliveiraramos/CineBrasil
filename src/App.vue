@@ -57,6 +57,7 @@
   font-weight: bold;
 }
 
+
 .logo a:hover {
   color: #FFFF33; /* um amarelo um pouco mais claro no hover */
   transform: scale(1.03);
