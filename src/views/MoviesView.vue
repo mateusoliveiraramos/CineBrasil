@@ -142,11 +142,10 @@ body {
 /* Lista de filmes */
 .lista-filmes {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 2.2rem;
   justify-items: center;
 
-  /* 🔹 limita a exibição a 3 linhas de filmes */
 
 }
 
@@ -160,13 +159,13 @@ body {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-  width: 330px;
-  height: 590px;
+  width: 250px;
+  height: 500px;
 }
 
 .cartao-filme img {
   width: 100%;
-  height: 500px;
+  height: 410px;
   object-fit: cover;
 }
 

@@ -1,5 +1,6 @@
 import 'vue-loading-overlay/dist/css/index.css';
 import './assets/main.css';
+import '@mdi/font/css/materialdesignicons.css';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';

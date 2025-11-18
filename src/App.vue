@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import Footer from '@/views/Footer.vue'
+</script>
 
 <template>
   <header class="header">
@@ -19,6 +21,7 @@
   <main>
     <router-view />
   </main>
+  <Footer></Footer>
 </template>
 
 <style scoped>

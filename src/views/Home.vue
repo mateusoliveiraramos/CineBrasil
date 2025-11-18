@@ -29,31 +29,27 @@ const bgImage = '/src/images/tropa_elite.jpg'
 
 .home-container {
   width: 100%;
-  min-height: 92.3vh;  /* ocupa a tela inteira para telas menores */
-  max-height: 860px;  /* não ultrapassa isso em telas grandes */
-
+  min-height: 88vh;
+  max-height: 860px;
   background-image:
     linear-gradient(to right, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.9) 100%),
     url('/src/images/tropa_elite.jpg');
-
   background-repeat: no-repeat;
   background-position: center center;
-
   background-color: black;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-
   padding: 3rem 5rem;
   box-sizing: border-box;
   color: white;
   position: relative;
-  overflow: hidden; /* evita scroll */
+  overflow: hidden;
+
 }
 
-/* Cabeçalho no topo direito */
+
 
 .subscribe-btn:hover {
   background-color: #0033cc;
