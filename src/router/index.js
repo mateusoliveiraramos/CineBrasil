@@ -17,6 +17,11 @@ const routes = [
     component: () => import('../views/MoviesDetailsView.vue'),
     props: true,
   },
+   {
+    path: '/sobre',
+    name: 'Sobre',
+    component: () => import('../views/Sobre.vue'),
+  },
 ]
 
 const router = createRouter({

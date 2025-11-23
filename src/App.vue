@@ -50,7 +50,7 @@ import Footer from '@/views/Footer.vue'
 
 .logo a {
   color: #E6E600;
-  text-decoration: none; /* remove o sublinhado */
+  text-decoration: none;
   font-weight: bold;
   transition: all 0.2s ease;
 }
@@ -62,7 +62,7 @@ import Footer from '@/views/Footer.vue'
 
 
 .logo a:hover {
-  color: #FFFF33; /* um amarelo um pouco mais claro no hover */
+  color: #FFFF33;
   transform: scale(1.03);
 }
 
