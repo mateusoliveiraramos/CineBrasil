@@ -51,7 +51,6 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
         {{ genre.name }}
       </button>
     </div>
-
     <div class="area-conteudo">
       <loading v-model:active="isLoading" is-full-page />
       <div class="lista-filmes">
