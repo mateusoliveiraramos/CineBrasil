@@ -28,14 +28,13 @@ const bgImage = '/src/images/tropa_elite.jpg'
 
 
 .home-container {
-  width: 100%;
   min-height: 88vh;
   max-height: 860px;
   background-image:
     linear-gradient(to right, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.9) 100%),
     url('/src/images/tropa_elite.jpg');
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: 70% center;
   background-color: black;
   display: flex;
   flex-direction: column;
@@ -46,7 +45,8 @@ const bgImage = '/src/images/tropa_elite.jpg'
   color: white;
   position: relative;
   overflow: hidden;
-
+  background-size: contain ;
+  margin: 1vw 0 0 0;
 }
 
 
