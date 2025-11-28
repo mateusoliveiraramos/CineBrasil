@@ -12,8 +12,8 @@ import Footer from '@/views/FooterView.vue'
       <div class="links">
         <router-link to="/">Home</router-link>
 
-        <router-link to="/categorias">Categorias</router-link>
-        <router-link to="/sobre">Sobre</router-link>
+        <router-link to="/filmes">Filmes</router-link>
+        <router-link to="/series">Séries</router-link>
       </div>
     </nav>
   </header>

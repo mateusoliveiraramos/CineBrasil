@@ -7,8 +7,8 @@ const routes = [
     component: () => import('../views/HomeView.vue'),
   },
   {
-    path: '/categorias',
-    name: 'Movies',
+    path: '/filmes',
+    name: 'Filmes',
     component: () => import('../views/MoviesView.vue'),
   },
   {
@@ -18,9 +18,9 @@ const routes = [
     props: true,
   },
    {
-    path: '/sobre',
-    name: 'Sobre',
-    component: () => import('../views/SobreView.vue'),
+    path: '/series',
+    name: 'Series',
+    component: () => import('../views/SeriesView.vue'),
   },
 ]
 

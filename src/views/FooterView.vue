@@ -12,8 +12,8 @@
         <h4>Navegação</h4>
         <ul>
           <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/categorias">Categorias</router-link></li>
-          <li><router-link to="/sobre">Sobre</router-link></li>
+          <li><router-link to="/filmes">Filmes</router-link></li>
+          <li><router-link to="/series">Séries</router-link></li>
         </ul>
       </div>
 

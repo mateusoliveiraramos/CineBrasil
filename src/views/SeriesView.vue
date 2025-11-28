@@ -12,23 +12,23 @@ const genreStore = useGenreStore()
 
 onMounted(async () => {
   isLoading.value = true
-  await genreStore.getAllGenres('movie')
+  await genreStore.getAllGenres('tv') // <-- gêneros de séries
   if (genreStore.genres.length > 0) {
     const firstGenre = genreStore.genres[0]
-    await listMovies(firstGenre.id)
+    await listSeries(firstGenre.id)
   }
   isLoading.value = false
 })
 
-function openMovie(movieId) {
-  router.push({ name: 'MovieDetails', params: { movieId } })
+function openSeries(seriesId) {
+  router.push({ name: 'SeriesDetails', params: { seriesId } }) 
 }
 
-const listMovies = async (genreId) => {
+const listSeries = async (genreId) => {
   genreStore.setCurrentGenreId(genreId)
   isLoading.value = true
 
-  const response = await api.get('discover/movie', {
+  const response = await api.get('discover/tv', {
     params: {
       with_genres: genreId,
       with_origin_country: 'BR',
@@ -39,6 +39,7 @@ const listMovies = async (genreId) => {
   movies.value = response.data.results
   isLoading.value = false
 }
+
 const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 </script>
 
@@ -46,37 +47,55 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   <div class="container-pagina">
 
     <div class="categorias-container">
-      <button v-for="genre in genreStore.genres" :key="genre.id" @click="listMovies(genre.id)"
-        :class="{ ativo: genre.id === genreStore.currentGenreId }">
+      <button
+        v-for="genre in genreStore.genres"
+        :key="genre.id"
+        @click="listSeries(genre.id)"
+        :class="{ ativo: genre.id === genreStore.currentGenreId }"
+      >
         {{ genre.name }}
       </button>
     </div>
+
     <div class="area-conteudo">
       <loading v-model:active="isLoading" is-full-page />
       <div class="lista-filmes">
-        <div v-for="movie in movies" :key="movie.id" class="cartao-filme">
-          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="movie.title"
-            @click="openMovie(movie.id)" />
+
+        <div
+          v-for="movie in movies"
+          :key="movie.id"
+          class="cartao-filme"
+        >
+          <img
+            :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+            :alt="movie.name"
+            @click="openSeries(movie.id)"
+          />
+
           <div class="info-filme">
-            <p class="movie-title">{{ movie.title }}</p>
-            <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
+            <p class="movie-title">{{ movie.name }}</p>
+            <p class="movie-release-date">{{ formatDate(movie.first_air_date) }}</p>
+
             <p class="movie-genres">
-              <span v-for="genre_id in movie.genre_ids" :key="genre_id" @click="listMovies(genre_id)"
-                :class="{ active: genre_id === genreStore.currentGenreId }">
+              <span
+                v-for="genre_id in movie.genre_ids"
+                :key="genre_id"
+                @click="listSeries(genre_id)"
+                :class="{ active: genre_id === genreStore.currentGenreId }"
+              >
                 {{ genreStore.getGenreName(genre_id) }}
               </span>
             </p>
 
           </div>
         </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-
-
 .container-pagina {
   display: flex;
   min-height: 100vh;
@@ -122,7 +141,6 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   font-weight: 600;
 }
 
-
 .area-conteudo {
   flex: 1;
   padding: 2rem 3rem;
@@ -152,27 +170,9 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   object-fit: cover;
 }
 
-
 .info-filme {
   padding: 0rem;
   text-align: center;
-}
-
-.info-filme h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: 0.4rem;
-  line-height: 1.4rem;
-}
-
-.info-filme p {
-  font-size: 0.9rem;
-  color: #b3b3b3;
-}
-
-.movie-details {
-  padding: 0 0.rem;
 }
 
 .movie-title {
@@ -199,7 +199,6 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   color: #fff;
   font-size: 0.8rem;
   font-weight: bold;
-
 }
 
 .movie-genres span:hover {
