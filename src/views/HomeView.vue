@@ -3,10 +3,8 @@ const bgImage = '/src/images/tropa_elite.jpg'
 </script>
 
 <template>
-  <div class="home-container" :style="{ backgroundImage: `url(${bgImage})` }">
-
-
-    <div class="content-left">
+  <div class="home" :style="{ backgroundImage: `url(${bgImage})` }">
+    <div class="esquerda">
       <h1>NA GUERRA,<br />NÃO HÁ REGRAS.</h1>
       <p>
         Planos a partir de R$9,99 BRL / Mês.<br />
@@ -14,20 +12,15 @@ const bgImage = '/src/images/tropa_elite.jpg'
         Novo no CineBrasil? Assine agora com 30 dias GRÁTIS.
       </p>
 
-
-      <button class="subscribe-main-btn">ASSINE CineBrasil</button>
-      <button class="secondary-btn">JÁ ASSINO CineBrasil</button>
-      <button class="secondary-btn">FAZER LOGIN COM O PARCEIRO</button>
+      <button class="assine">ASSINE CineBrasil</button>
+      <button class="assino">JÁ ASSINO CineBrasil</button>
+      <button class="assino">FAZER LOGIN COM O PARCEIRO</button>
     </div>
   </div>
 </template>
 
 <style scoped>
-
-
-
-
-.home-container {
+.home {
   min-height: 88vh;
   max-height: 860px;
   background-image:
@@ -45,17 +38,11 @@ const bgImage = '/src/images/tropa_elite.jpg'
   color: white;
   position: relative;
   overflow: hidden;
-  background-size: contain ;
+  background-size: contain;
   margin: 1vw 0 0 0;
 }
 
-
-
-.subscribe-btn:hover {
-  background-color: #0033cc;
-}
-
-.content-left {
+.esquerda {
   max-width: 450px;
   margin-top: 6rem;
   display: flex;
@@ -63,7 +50,7 @@ const bgImage = '/src/images/tropa_elite.jpg'
   gap: 1rem;
 }
 
-.content-left h1 {
+.esquerda h1 {
   font-size: 3.5rem;
   font-weight: 900;
   line-height: 1.2;
@@ -71,13 +58,13 @@ const bgImage = '/src/images/tropa_elite.jpg'
   text-transform: uppercase;
 }
 
-.content-left p {
+.esquerda p {
   font-size: 1rem;
   line-height: 1.4;
   color: #ddd;
 }
 
-.subscribe-main-btn {
+.assine {
   margin-top: 1.5rem;
   background: #0046FF;
   border: none;
@@ -92,11 +79,11 @@ const bgImage = '/src/images/tropa_elite.jpg'
   transition: background-color 0.3s ease;
 }
 
-.subscribe-main-btn:hover {
+.assine:hover {
   background-color: #0033cc;
 }
 
-.secondary-btn {
+.assino {
   margin-top: 1rem;
   background: transparent;
   border: 1.5px solid white;
@@ -110,7 +97,7 @@ const bgImage = '/src/images/tropa_elite.jpg'
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.secondary-btn:hover {
+.assino:hover {
   background-color: white;
   color: #0046FF;
 }

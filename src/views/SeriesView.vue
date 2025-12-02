@@ -10,9 +10,51 @@ const isLoading = ref(false)
 const movies = ref([])
 const genreStore = useGenreStore()
 
+const genreTranslations = {
+  "Action & Adventure": "Ação e Aventura",
+  "Animation": "Animação",
+  "Comedy": "Comédia",
+  "Crime": "Crime",
+  "Documentary": "Documentário",
+  "Drama": "Drama",
+  "Family": "Família",
+  "Kids": "Infantil",
+  "Mystery": "Mistério",
+  "News": "Notícias",
+  "Reality": "Reality Show",
+  "Sci-Fi & Fantasy": "Ficção Científica e Fantasia",
+  "Soap": "Novela",
+  "Talk": "Talk Show",
+  "War & Politics": "Guerra e Política",
+  "Western": "Faroeste",
+}
+
+const genreTranslationsById = {
+  10759: "Ação e Aventura",
+  16: "Animação",
+  35: "Comédia",
+  80: "Crime",
+  99: "Documentário",
+  18: "Drama",
+  10751: "Família",
+  10762: "Infantil",
+  9648: "Mistério",
+  10763: "Notícias",
+  10764: "Reality Show",
+  10765: "Ficção Científica e Fantasia",
+  10766: "Novela",
+  10767: "Talk Show",
+  10768: "Guerra e Política",
+  37: "Faroeste"
+}
+
 onMounted(async () => {
   isLoading.value = true
-  await genreStore.getAllGenres('tv') // <-- gêneros de séries
+  await genreStore.getAllGenres('tv')
+  genreStore.genres = genreStore.genres.map(g => ({
+    ...g,
+    name: genreTranslationsById[g.id] || genreTranslations[g.name] || g.name
+  }))
   if (genreStore.genres.length > 0) {
     const firstGenre = genreStore.genres[0]
     await listSeries(firstGenre.id)
@@ -20,14 +62,13 @@ onMounted(async () => {
   isLoading.value = false
 })
 
-function openSeries(seriesId) {
-  router.push({ name: 'SeriesDetails', params: { seriesId } }) 
+function openSeries(serieId) {
+  router.push({ name: 'SeriesDetails', params: { serieId } })
 }
 
 const listSeries = async (genreId) => {
   genreStore.setCurrentGenreId(genreId)
   isLoading.value = true
-
   const response = await api.get('discover/tv', {
     params: {
       with_genres: genreId,
@@ -35,17 +76,20 @@ const listSeries = async (genreId) => {
       language: 'pt-BR',
     },
   })
-
   movies.value = response.data.results
   isLoading.value = false
 }
 
 const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
+
+const getGenreName = (id) => {
+  const genre = genreStore.genres.find(g => g.id === id)
+  return genreTranslationsById[id] || (genre ? genre.name : "")
+}
 </script>
 
 <template>
   <div class="container-pagina">
-
     <div class="categorias-container">
       <button
         v-for="genre in genreStore.genres"
@@ -60,7 +104,6 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
     <div class="area-conteudo">
       <loading v-model:active="isLoading" is-full-page />
       <div class="lista-filmes">
-
         <div
           v-for="movie in movies"
           :key="movie.id"
@@ -74,7 +117,10 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 
           <div class="info-filme">
             <p class="movie-title">{{ movie.name }}</p>
-            <p class="movie-release-date">{{ formatDate(movie.first_air_date) }}</p>
+
+            <p class="movie-release-date">
+              {{ formatDate(movie.first_air_date) }}
+            </p>
 
             <p class="movie-genres">
               <span
@@ -83,7 +129,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
                 @click="listSeries(genre_id)"
                 :class="{ active: genre_id === genreStore.currentGenreId }"
               >
-                {{ genreStore.getGenreName(genre_id) }}
+                {{ getGenreName(genre_id) }}
               </span>
             </p>
 
@@ -131,7 +177,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 .categorias-container button:hover {
   color: black;
   background: #1A4ED8;
-  transform: translateX(3px);
+  transform: translateX(1px);
   box-shadow: 0 0 12px #1A4ED8;
 }
 
@@ -155,12 +201,12 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 
 .cartao-filme {
   background: #141414;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-  width: 260px;
+  width: 275px;
   height: 580px;
 }
 
@@ -176,10 +222,15 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 }
 
 .movie-title {
-  font-size: 1.1rem;
+  margin: 5px 0 0 0;
+  font-size: 1.3rem !important;
   font-weight: bold;
   line-height: 1.3rem;
   height: 2rem;
+}
+
+.movie-release-date {
+  font-size: 1rem !important;
 }
 
 .movie-genres {

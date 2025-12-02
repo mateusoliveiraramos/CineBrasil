@@ -1,58 +1,74 @@
 <script setup>
-  import { defineProps, onMounted } from 'vue';
-  import { useMovieStore } from '@/stores/movies';
-  const movieStore = useMovieStore();
+import { defineProps, onMounted } from 'vue'
+import { useSeriesStore } from '@/stores/series'
 
+const seriesStore = useSeriesStore()
 
-  const props = defineProps({
-    movieId: {
-      type: Number,
-      required: true,
-    },
-  });
+const props = defineProps({
+  serieId: {
+    type: Number,
+    required: true,
+  },
+})
 
-  onMounted(async () => {
-    await movieStore.getMovieDetail(props.movieId);
-  });
+onMounted(async () => {
+  await seriesStore.getSeriesDetail(props.serieId)
+})
 </script>
 
 <template>
   <div class="movie-detail">
+
     <div class="content">
       <div class="poster">
         <img
-          :src="`https://image.tmdb.org/t/p/w500${movieStore.currentMovie.poster_path}`"
-          :alt="movieStore.currentMovie.title"
+          :src="`https://image.tmdb.org/t/p/w500${seriesStore.currentSeries.poster_path}`"
+          :alt="seriesStore.currentSeries.name"
         />
       </div>
+
       <div class="details">
-        <h1>{{ movieStore.currentMovie.original_title }}</h1>
-        <p class="tagline" v-if="movieStore.currentMovie.tagline">
-          “{{ movieStore.currentMovie.tagline }}”
+        <h1>{{ seriesStore.currentSeries.name }}</h1>
+
+        <p class="tagline" v-if="seriesStore.currentSeries.tagline">
+          “{{ seriesStore.currentSeries.tagline }}”
         </p>
-        <p class="overview">{{ movieStore.currentMovie.overview }}</p>
+
+        <p class="overview">
+          {{ seriesStore.currentSeries.overview }}
+        </p>
 
         <div class="info">
-          <p><strong>Orçamento:</strong> ${{ movieStore.currentMovie.budget?.toLocaleString() }}</p>
-          <p><strong>Avaliação:</strong> ⭐ {{ movieStore.currentMovie.vote_average }}</p>
+          <p><strong>Primeiro Episódio:</strong> {{ seriesStore.currentSeries.first_air_date }}</p>
+          <p><strong>Avaliação:</strong> ⭐ {{ seriesStore.currentSeries.vote_average }}</p>
+          <p><strong>Temporadas:</strong> {{ seriesStore.currentSeries.number_of_seasons }}</p>
+          <p><strong>Episódios:</strong> {{ seriesStore.currentSeries.number_of_episodes }}</p>
         </div>
       </div>
     </div>
-    <div class="companies-section" v-if="movieStore.currentMovie.production_companies?.length">
+
+    <div
+      class="companies-section"
+      v-if="seriesStore.currentSeries.production_companies?.length"
+    >
       <h2>Produtoras</h2>
+
       <div class="companies">
-        <template v-for="company in movieStore.currentMovie.production_companies" :key="company.id">
-          <div class="company">
-            <img
-              v-if="company.logo_path"
-              :src="`https://image.tmdb.org/t/p/w154${company.logo_path}`"
-              :alt="company.name"
-            />
-            <p v-else>{{ company.name }}</p>
-          </div>
-        </template>
+        <div
+          v-for="company in seriesStore.currentSeries.production_companies"
+          :key="company.id"
+          class="company"
+        >
+          <img
+            v-if="company.logo_path"
+            :src="`https://image.tmdb.org/t/p/w154${company.logo_path}`"
+            :alt="company.name"
+          />
+          <p v-else>{{ company.name }}</p>
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 

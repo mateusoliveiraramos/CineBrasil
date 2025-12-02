@@ -112,7 +112,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 .categorias-container button:hover {
   color: black;
   background: #1A4ED8;
-  transform: translateX(3px);
+  transform: translateX(1px);
   box-shadow: 0 0 12px #1A4ED8;
 }
 
@@ -137,12 +137,12 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 
 .cartao-filme {
   background: #141414;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-  width: 260px;
+  width: 275px;
   height: 580px;
 }
 
@@ -176,12 +176,15 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 }
 
 .movie-title {
-  font-size: 1.1rem;
+  margin: 5px 0 0 0;
+  font-size: 1.3rem !important;
   font-weight: bold;
   line-height: 1.3rem;
   height: 2rem;
 }
-
+.movie-release-date {
+  font-size: 1rem !important;
+}
 .movie-genres {
   display: flex;
   flex-direction: row;
