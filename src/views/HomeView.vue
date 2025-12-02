@@ -1,5 +1,5 @@
 <script setup>
-const bgImage = '/src/images/tropa_elite.jpg'
+const bgImage = '/public/tropa_elite.jpg'
 </script>
 
 <template>
